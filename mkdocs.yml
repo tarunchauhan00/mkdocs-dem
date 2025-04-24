@@ -1,0 +1,10 @@
+site_name: My Docs Site
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Admin: admin/index.html    # ← add this line
+
+extra_javascript:
+  - https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js
