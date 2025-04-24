@@ -1,8 +1,12 @@
 [build]
-  # first install Python deps, then build with MkDocs
-  command = "pip install --upgrade pip && pip install -r requirements.txt && mkdocs build"
-  publish = "site"
+  # 1) Upgrade pip  2) Install exactly what's in requirements.txt  3) Build MkDocs site
+  command   = "pip install --upgrade pip && pip install -r requirements.txt && mkdocs build"
+  publish   = "site"
 
 [build.environment]
-  # ensure Python is in PATH
+  # Pin Python 3.9 for Netlify’s build image
   PYTHON_VERSION = "3.9"
+
+[context.production.environment]
+  # Ensure Git Gateway works
+  GIT_GATEWAY_ENABLED = "true"
