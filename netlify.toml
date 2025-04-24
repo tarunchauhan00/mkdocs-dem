@@ -1,0 +1,8 @@
+[build]
+  # first install Python deps, then build with MkDocs
+  command = "pip install --upgrade pip && pip install -r requirements.txt && mkdocs build"
+  publish = "site"
+
+[build.environment]
+  # ensure Python is in PATH
+  PYTHON_VERSION = "3.9"

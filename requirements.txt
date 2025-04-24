@@ -1,0 +1,13 @@
+mkdocs
+mkdocs-material
+netlify-cms    # if you’re using mkdocs-netlifycms-plugin
+mkdocs-netlifycms-plugin
+mkdocs-pdf-export-plugin
+weasyprint    # for PDF export
+mkdocs-mermaid2-plugin
+mkdocs-tabs-plugin
+mkdocs-include-markdown-plugin
+mkdocs-redirects
+mkdocs-awesome-pages-plugin
+mkdocs-git-revision-date-plugin
+mkdocs-macros-plugin
