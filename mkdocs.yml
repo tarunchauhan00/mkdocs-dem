@@ -4,7 +4,8 @@ theme:
 
 nav:
   - Home: index.md
+  - Introduction: introduction.md
+  - Usage: usage.md
+  - FAQ: faq.md
   - Admin: admin/index.html
 
-extra_javascript:
-  - https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js
