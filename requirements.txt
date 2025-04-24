@@ -1,6 +1,5 @@
 mkdocs
 mkdocs-material
-mkdocs-netlifycms-plugin
 mkdocs-pdf-export-plugin
 weasyprint
 mkdocs-mermaid2-plugin
