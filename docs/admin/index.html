@@ -3,34 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <title>Content Manager</title>
-
-    <!-- Make all relative URLs root-relative -->
     <base href="/" />
 
-    <!-- Point the CMS at its config -->
+    <!-- Tell Netlify-CMS where its config lives -->
     <link rel="cms-config-url" href="/admin/config.yaml" type="text/yaml" />
-
-    <!-- 1) Load the Netlify Identity widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      // Configure Identity to allow open sign-up
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', user => {
-          // If no user, open the signup/login modal immediately
-          if (!user) {
-            window.netlifyIdentity.open('login');
-          }
-        });
-        window.netlifyIdentity.init({ open_signup: true });
-      }
-    </script>
-
-    <!-- 2) Load Netlify CMS after Identity -->
-    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
   </head>
 
   <body>
-    <!-- Mount point for the CMS -->
+    <!-- 1) Mount point for the CMS UI -->
     <div id="nc-root"></div>
+
+    <!-- 2) Load Identity widget and CMS bundle at the end, after DOM is ready -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+      document.addEventListener('DOMContentLoaded', function() {
+        // Load Netlify Identity widget
+        var idScript = document.createElement('script');
+        idScript.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+        idScript.onload = function() {
+          // Initialize Identity (open signup enabled)
+          netlifyIdentity.init({ open_signup: true });
+          netlifyIdentity.on('init', function(user) {
+            if (!user) {
+              netlifyIdentity.open('login');
+            }
+          });
+        };
+        document.body.appendChild(idScript);
+
+        // Load Netlify CMS
+        var cmsScript = document.createElement('script');
+        cmsScript.src = 'https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js';
+        cmsScript.onload = function() {
+          // Now manually init the CMS into our #nc-root
+          CMS.init({
+            configPath: '/admin/config.yaml',
+            root: document.getElementById('nc-root')
+          });
+        };
+        document.body.appendChild(cmsScript);
+      });
+    </script>
   </body>
 </html>
