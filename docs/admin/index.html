@@ -3,10 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <title>Content Manager</title>
+
+    <!-- Ensure relative paths resolve from site root -->
     <base href="/" />
-    <link rel="cms-config-url" href="/admin/config.yml" type="text/yaml" />
+
+    <!-- Tell the CMS where its config lives -->
+    <link rel="cms-config-url" href="/admin/config.yaml" type="text/yaml" />
+
+    <!-- Prevent the auto-init so we can do manual init -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
+
+    <!-- Load the CMS bundle -->
     <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <!-- This is the mount point for the CMS -->
+    <div id="nc-root"></div>
+
+    <!-- Now manually initialize the CMS into that div -->
+    <script>
+      CMS.init({
+        configPath: '/admin/config.yaml',
+        root: document.getElementById('nc-root')
+      });
+    </script>
+  </body>
 </html>
-  

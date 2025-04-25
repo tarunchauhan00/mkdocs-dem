@@ -1,7 +1,9 @@
 site_name: My Docs Site
+site_description: Documentation with Netlify CMS
 theme:
   name: material
 
+# navigation including the Admin page
 nav:
   - Home: index.md
   - Introduction: introduction.md
@@ -9,3 +11,14 @@ nav:
   - FAQ: faq.md
   - Admin: admin/index.html
 
+# no extra_javascript here! the CMS script only lives in admin/index.html
+
+# ensure docs_dir is default `docs/`
+docs_dir: docs
+
+# include admin folder so it's copied into site/
+include:
+  - admin/**
+
+plugins:
+  - search
