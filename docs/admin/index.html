@@ -4,28 +4,33 @@
     <meta charset="utf-8" />
     <title>Content Manager</title>
 
-    <!-- Ensure relative paths resolve from site root -->
+    <!-- Make all relative URLs root-relative -->
     <base href="/" />
 
-    <!-- Tell the CMS where its config lives -->
+    <!-- Point the CMS at its config -->
     <link rel="cms-config-url" href="/admin/config.yaml" type="text/yaml" />
 
-    <!-- Prevent the auto-init so we can do manual init -->
-    <script>window.CMS_MANUAL_INIT = true;</script>
+    <!-- 1) Load the Netlify Identity widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      // Configure Identity to allow open sign-up
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', user => {
+          // If no user, open the signup/login modal immediately
+          if (!user) {
+            window.netlifyIdentity.open('login');
+          }
+        });
+        window.netlifyIdentity.init({ open_signup: true });
+      }
+    </script>
 
-    <!-- Load the CMS bundle -->
+    <!-- 2) Load Netlify CMS after Identity -->
     <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
   </head>
-  <body>
-    <!-- This is the mount point for the CMS -->
-    <div id="nc-root"></div>
 
-    <!-- Now manually initialize the CMS into that div -->
-    <script>
-      CMS.init({
-        configPath: '/admin/config.yaml',
-        root: document.getElementById('nc-root')
-      });
-    </script>
+  <body>
+    <!-- Mount point for the CMS -->
+    <div id="nc-root"></div>
   </body>
 </html>
